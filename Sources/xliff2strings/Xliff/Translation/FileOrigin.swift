@@ -16,7 +16,7 @@ private struct Body: Decodable {
     let translations: [Translation]
 }
 
-struct FileOrigin: Decodable {
+public struct FileOrigin: Decodable {
     enum CodingKeys: String, CodingKey {
         case filePath = "original"
         case datatype
@@ -25,21 +25,21 @@ struct FileOrigin: Decodable {
         case translations = "body"
     }
     
-    let filePath: String
-    let datatype: String
-    let sourceLanguage: String
-    let targetLanguage: String?
-    let translations: [Translation]
+    public let filePath: String
+    public let datatype: String
+    public let sourceLanguage: String
+    public let targetLanguage: String?
+    public let translations: [Translation]
     
-    var safeTargetLanguage: String {
+    public var safeTargetLanguage: String {
         return sourceLanguage
     }
     
-    var isStringsDict: Bool {
+    public var isStringsDict: Bool {
         return filePath.hasSuffix(".stringsdict")
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         datatype = try container.decode(String.self, forKey: .datatype)

@@ -1,6 +1,7 @@
 import Foundation
 import XMLCoder
 import ArgumentParser
+import xliff2strings
 
 //
 //  EchoCommand.swift

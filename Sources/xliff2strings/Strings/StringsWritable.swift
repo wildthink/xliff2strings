@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol StringsWritable {
+public protocol StringsWritable {
     init(fileOrigin: FileOrigin, saveFolder: URL)
     var fileOrigin: FileOrigin { get }
     func encodeAndSave() throws

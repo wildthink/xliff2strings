@@ -40,7 +40,7 @@ extension Collection {
     }
 }
 
-func createFileHandle(forSafeWritingTo url: URL) throws -> FileHandle {
+public func createFileHandle(forSafeWritingTo url: URL) throws -> FileHandle {
     try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
     if !FileManager.default.createFile(atPath: url.path, contents: nil) {
         throw FileError.createFail
@@ -51,7 +51,7 @@ func createFileHandle(forSafeWritingTo url: URL) throws -> FileHandle {
 
 // SPM v4.2 does not support target OS and defaults to 10.10 SDK
 // make a helper to resolve relative URL on 10.10
-func createFileUrl(for path: String, isDirectory: Bool, relativeTo url: URL? = nil) -> URL {
+public func createFileUrl(for path: String, isDirectory: Bool, relativeTo url: URL? = nil) -> URL {
     if #available(OSX 10.11, iOS 9.0, *) {
         return URL(fileURLWithPath: path, isDirectory: isDirectory, relativeTo: url)
     } else {
@@ -66,7 +66,7 @@ func createFileUrl(for path: String, isDirectory: Bool, relativeTo url: URL? = n
 // merge two optional dictionaries
 // does not do deep merge
 // prefers values from second dictionary
-func mergeDicts<K, E>(base: [K: E]?, with: [K: E]?) -> [K: E] {
+public func mergeDicts<K, E>(base: [K: E]?, with: [K: E]?) -> [K: E] {
     switch (base, with) {
     case (.some(let b), .some(let w)):
         return b.merging(w, uniquingKeysWith: { $1 })

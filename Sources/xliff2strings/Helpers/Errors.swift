@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum FileError: Error, LocalizedError, CustomDebugStringConvertible {
+public enum FileError: Error, LocalizedError, CustomDebugStringConvertible {
     case notExists
     case createFail
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .notExists:
             return "File/folder does not exist"
@@ -20,7 +20,7 @@ enum FileError: Error, LocalizedError, CustomDebugStringConvertible {
         }
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         return errorDescription ?? "Unknown error happened"
     }
 }

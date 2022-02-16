@@ -9,7 +9,8 @@ let package = Package(
         .macOS(SupportedPlatform.MacOSVersion.v10_13)
     ],
     products: [
-//        .library(name: "xliff2strings", targets: ["xliff2strings"]),
+        .executable(name: "xliff", targets: ["xliff"]),
+        .library(name: "xliff2strings", targets: ["xliff2strings"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -24,15 +25,15 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "xliff2strings",
+            name: "xliff",
             dependencies: [
-                "XMLCoder",
+                "xliff2strings",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
     ),
-//        .target(
-//            name: "xliff2strings",
-//            dependencies: ["XMLCoder", "SwiftCLI"]),
+        .target(
+            name: "xliff2strings",
+            dependencies: ["XMLCoder"]),
     ],
     swiftLanguageVersions: [.v5]
 )

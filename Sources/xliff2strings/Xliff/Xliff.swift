@@ -23,25 +23,25 @@ extension NSRegularExpression {
     }
 }
 
-struct Xliff: Decodable {
+public struct Xliff: Decodable {
     enum CodingKeys: String, CodingKey {
         case files = "file"
     }
     
     let files: [FileOrigin]
     
-    func list(matching: String) throws -> [String] {
+    public func list(matching: String) throws -> [String] {
         let regex = try! NSRegularExpression(pattern: matching)
         return files.filter({regex.matches($0.filePath)}).map(\.filePath)
     }
 
-    func stringFiles(matching: String, out: URL) throws -> [StringsWritable] {
+    public func stringFiles(matching: String, out: URL) throws -> [StringsWritable] {
         let regex = try! NSRegularExpression(pattern: matching)
         return files.filter({regex.matches($0.filePath)})
             .map{ $0.stringsWritable(to: out) }
     }
 
-    func getStringFiles(outFolder out: URL) -> [StringsWritable] {
+    public func getStringFiles(outFolder out: URL) -> [StringsWritable] {
         return files.map({ file -> StringsWritable in
             // check if file is .strings or .stringsdict
             return file.isStringsDict
