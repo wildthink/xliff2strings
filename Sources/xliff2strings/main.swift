@@ -89,8 +89,14 @@ extension Command {
             )
         }
         
+        @Flag(name: .shortAndLong, help: "List files from xliff")
+        var list: Bool = false
+
+        @Option(name: .shortAndLong, help: "Regex to select files")
+        var filter: String = ".*"
+
         @Argument(help: "The input")
-        var input: [String]
+        var input: String
         
         @Option(name: .shortAndLong, help: "The file to output to. Defaults to <stdout>.")
         var output: String?
@@ -98,9 +104,19 @@ extension Command {
         func run() throws {
             let workingDir = URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true)
             
-    //        guard let data = inFile.value.flatMap(FileManager.default.contents(atPath:)) else {
-            guard let data = FileManager.default.contents(atPath: input[0])
+            guard let data = FileManager.default.contents(atPath: input)
             else { throw FileError.notExists }
+            
+            let decoder = XMLDecoder()
+            decoder.trimValueWhitespaces = false
+            let xliff = try decoder.decode(Xliff.self, from: data)
+
+            if list {
+                try xliff.list(matching: filter).forEach {
+                    print($0)
+                }
+                return
+            }
             
             let out: URL
             
@@ -111,11 +127,9 @@ extension Command {
             } else {
                 out = workingDir
             }
-            let decoder = XMLDecoder()
-            decoder.trimValueWhitespaces = false
-            let xliff = try decoder.decode(Xliff.self, from: data)
             
-            let strings = xliff.getStringFiles(outFolder: out)
+//            let strings = xliff.getStringFiles(outFolder: out)
+            let strings = try xliff.stringFiles(matching: filter, out: out)
             for st in strings {
                 try st.encodeAndSave()
             }

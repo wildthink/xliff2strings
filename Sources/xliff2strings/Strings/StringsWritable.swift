@@ -9,6 +9,6 @@ import Foundation
 
 protocol StringsWritable {
     init(fileOrigin: FileOrigin, saveFolder: URL)
-    
+    var fileOrigin: FileOrigin { get }
     func encodeAndSave() throws
 }

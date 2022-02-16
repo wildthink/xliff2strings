@@ -8,10 +8,12 @@
 import Foundation
 
 struct StringsFile: StringsWritable {
+    private(set) var fileOrigin: FileOrigin
     private let translations: [Translation]
     private let fileUrl: URL
     
     init(fileOrigin: FileOrigin, saveFolder: URL) {
+        self.fileOrigin = fileOrigin
         self.translations = fileOrigin.translations
         self.fileUrl = saveFolder
             .appendingPathComponent(fileOrigin.filePath, isDirectory: false)
