@@ -6,10 +6,11 @@
 //
 
 import Foundation
-import SwiftCLI
+import ArgumentParser
 import XMLCoder
 
 
+/*
 private let folderValidation = Validation<String>.custom("Expected a folder path!") { (folder: String) -> Bool in
     var isDirectory: ObjCBool = false
     let exists = FileManager.default.fileExists(atPath: folder, isDirectory: &isDirectory)
@@ -51,3 +52,5 @@ final class XliffToStrings: Command {
         }
     }
 }
+*/
+

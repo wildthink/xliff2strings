@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import XMLCoder
+//import XMLCoder
 
 struct Xliff: Decodable {
     enum CodingKeys: String, CodingKey {
