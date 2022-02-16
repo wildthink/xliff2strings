@@ -127,9 +127,9 @@ extension Command {
             } else {
                 out = workingDir
             }
-            
 //            let strings = xliff.getStringFiles(outFolder: out)
             let strings = try xliff.stringFiles(matching: filter, out: out)
+
             for st in strings {
                 try st.encodeAndSave()
             }

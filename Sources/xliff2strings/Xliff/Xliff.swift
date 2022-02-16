@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import XMLCoder
 
 // jmj
 extension FileOrigin {
