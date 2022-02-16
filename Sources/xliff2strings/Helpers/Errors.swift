@@ -7,17 +7,28 @@
 
 import Foundation
 
-public enum FileError: Error, LocalizedError, CustomDebugStringConvertible {
-    case notExists
-    case createFail
+public struct FileError: Error, LocalizedError, CustomDebugStringConvertible {
+    let msg: String
+    let file: String
     
+    public static func notExists(_ file: URL) -> FileError {
+        .init(msg: "Does not exist", file: file.path)
+    }
+    
+    public static func createFail(_ file: URL) -> FileError {
+        .init(msg: "Cannot create", file: file.path)
+    }
+    
+    public static func notExists(_ file: String) -> FileError {
+        .init(msg: "Does not exist", file: file)
+    }
+    
+    public static func createFail(_ file: String) -> FileError {
+        .init(msg: "Cannot create", file: file)
+    }
+
     public var errorDescription: String? {
-        switch self {
-        case .notExists:
-            return "File/folder does not exist"
-        case .createFail:
-            return "Failed to create file/folder"
-        }
+        "\(msg) \(file)"
     }
     
     public var debugDescription: String {

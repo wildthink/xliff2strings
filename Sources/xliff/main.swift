@@ -12,8 +12,8 @@ extension Command {
     struct Main: ParsableCommand {
         static var configuration: CommandConfiguration {
             .init(
-                commandName: "xliff2strings",
-                abstract: "A program to create Localization string resources",
+                commandName: "xliff",
+                abstract: "Create Localization string resources from .xliff",
                 version: BUILD_VERSION,
                 subcommands: [
                 ]
@@ -27,16 +27,25 @@ extension Command {
         var filter: String = ".*"
 
         @Argument(help: "The input")
-        var input: String
+        var input: [String]
         
-        @Option(name: .shortAndLong, help: "The file to output to. Defaults to <stdout>.")
+        @Option(name: .shortAndLong, help: "The file to output to. Defaults to cwd.")
         var output: String?
 
         func run() throws {
-            let workingDir = URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true)
+            let workingDir = URL(
+                fileURLWithPath: FileManager.default.currentDirectoryPath,
+                isDirectory: true)
             
-            guard let data = FileManager.default.contents(atPath: input)
-            else { throw FileError.notExists }
+            for file in input {
+                try process(file, in: workingDir)
+            }
+        }
+        
+        func process(_ file: String, in workingDir: URL) throws {
+            
+            guard let data = FileManager.default.contents(atPath: file)
+            else { throw FileError.notExists(file) }
             
             let decoder = XMLDecoder()
             decoder.trimValueWhitespaces = false

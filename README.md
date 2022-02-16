@@ -25,11 +25,45 @@ Key | Value
 NSStringFormatSpecTypeKey | NSStringPluralRuleType
 NSStringFormatValueTypeKey | d
 
+## Xcloc
+
+#### Directory Layout
+
+```
+fr.xcloc
+├── Localized Contents
+│   └── fr.xliff
+├── Notes
+├── Source Contents
+│   └── en.lproj
+│       ├── LocalCheck-InfoPlist.strings
+│       └── Localizable.strings
+└── contents.json
+```
+
+##### content.json
+
+```json
+{
+  "developmentRegion" : "en",
+  "project" : "LocalCheck.xcodeproj",
+  "targetLocale" : "fr",
+  "toolInfo" : {
+    "toolBuildNumber" : "13C90",
+    "toolID" : "com.apple.dt.xcode",
+    "toolName" : "Xcode",
+    "toolVersion" : "13.2"
+  },
+  "version" : "1.0"
+}
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* [SwiftCLI](https://github.com/jakeheis/SwiftCLI) - library for Swift CLI apps
+* [Ivan Kolesnik](https://github.com/ivankolesnik/xliff2strings) - The author of the original project
+* [Swift ArgumentParser](https://github.com/apple/swift-argument-parser) - Apple library for Swift CLI apps
 * [XMLCoder](https://github.com/MaxDesiatov/XMLCoder) - wonderful library that did all heavy XML parsing for me

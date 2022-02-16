@@ -43,7 +43,7 @@ extension Collection {
 public func createFileHandle(forSafeWritingTo url: URL) throws -> FileHandle {
     try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
     if !FileManager.default.createFile(atPath: url.path, contents: nil) {
-        throw FileError.createFail
+        throw FileError.createFail(url)
     }
     
     return try FileHandle(forWritingTo: url)
