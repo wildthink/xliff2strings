@@ -8,12 +8,12 @@
 import Foundation
 
 // proxy element that parses plural key and key path
-struct PluralElement {
-    let key: String
-    let path: [String]
-    let translation: Translation
+public struct PluralElement {
+    public let key: String
+    public let path: [String]
+    public let translation: Translation
     
-    init?(from translation: Translation) {
+    public init?(from translation: Translation) {
         let tokens = translation.id.split(separator: "/")
         // /plural_days_ago:dict/NSStringLocalizedFormatKey:dict/:string
         if tokens.count < 3 {

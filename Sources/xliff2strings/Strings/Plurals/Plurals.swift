@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Plurals: Encodable {
+public struct Plurals: Encodable {
     let contents: [String: Plural]
     
-    init(with translations: [Translation]) {
+    public init(with translations: [Translation]) {
         let elements: [PluralElement] = translations.compactMap(PluralElement.init(from:))
         // group plural elements by plural key
         let grouped: [String: [PluralElement]] = Dictionary(grouping: elements, by: { $0.key })
@@ -19,7 +19,7 @@ struct Plurals: Encodable {
         self.contents = plurals.reduce(into: [:], { $0[$1.key] = $1 })
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingUnknownKeys.self)
         for (key, plural) in contents {
             // key is dynamic

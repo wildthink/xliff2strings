@@ -30,10 +30,19 @@ let package = Package(
                 "xliff2strings",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
-    ),
+        ),
         .target(
             name: "xliff2strings",
             dependencies: ["XMLCoder"]),
+        .testTarget(
+            name: "xliffTests",
+            dependencies: [
+                "xliff2strings",
+            ],
+            resources: [
+                .process("Resources"),
+            ]),
+
     ],
     swiftLanguageVersions: [.v5]
 )

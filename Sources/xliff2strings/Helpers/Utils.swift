@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct CodingUnknownKeys: CodingKey {
-    var intValue: Int?
-    var stringValue: String
+public struct CodingUnknownKeys: CodingKey {
+    public var intValue: Int?
+    public var stringValue: String
     
-    init?(intValue: Int) {
+    public init?(intValue: Int) {
         self.intValue = intValue
         self.stringValue = "\(intValue)"
     }
 
-    init?(stringValue: String) {
+    public init?(stringValue: String) {
         self.stringValue = stringValue
         self.intValue = Int(stringValue)
     }
     
-    static func make(_ key: Int) -> CodingUnknownKeys {
+    public static func make(_ key: Int) -> CodingUnknownKeys {
         return CodingUnknownKeys(intValue: key)!
     }
     
-    static func make(_ key: String) -> CodingUnknownKeys {
+    public static func make(_ key: String) -> CodingUnknownKeys {
         return CodingUnknownKeys(stringValue: key)!
     }
 }

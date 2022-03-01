@@ -7,21 +7,22 @@
 
 import Foundation
 
-struct Plural: Encodable {
+public struct Plural: Encodable {
     // using unknown keys since value key is dynamic
     private let formatKey: CodingUnknownKeys = .make("NSStringLocalizedFormatKey")
-    private let valuesKey: CodingUnknownKeys
+    let valuesKey: CodingUnknownKeys
     
-    let key: String
-    let format: String
-    private(set) var values: [String:String] = [
+    public let key: String
+    public let format: String
+    var values: [String:String] = [
         // TODO: find a magic way to create this keys from xliff contents
         "NSStringFormatSpecTypeKey":"NSStringPluralRuleType",
         "NSStringFormatValueTypeKey":"d"
     ]
+    
     private(set) var unknown: [String:String] = [:]
     
-    init?(key: String, plurals: [PluralElement]) {
+    public init?(key: String, plurals: [PluralElement]) {
         var dictionaryKey = "VARIABLE"
         // NSStringLocalizedFormatKey value
         var formatValue = "%#@VARIABLE@"
@@ -55,7 +56,7 @@ struct Plural: Encodable {
         self.valuesKey = .make(dictionaryKey)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingUnknownKeys.self)
         try container.encode(format, forKey: formatKey)
         try container.encode(values, forKey: valuesKey)
