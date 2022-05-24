@@ -13,13 +13,13 @@ public struct Translation: Decodable {
     public let target: String?
     public let note: String?
     
-    public var safeTarget: String {
+     var safeTarget: String {
         // WORKAROUND: for en target can be empty, use source
-        return target ?? source
+        return (target ?? source).escaped
     }
     
-    public var safeNote: String {
+    var safeNote: String {
         // WORKAROUND: if note does not exist, use source as comment
-        return note ?? source
+        return (note ?? source).escaped
     }
 }
