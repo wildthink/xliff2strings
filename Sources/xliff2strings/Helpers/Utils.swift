@@ -7,6 +7,26 @@
 
 import Foundation
 
+extension String {
+    
+    var escaped: String {
+        self
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: #"\n"#, with: #" "#)
+            .replacingOccurrences(of: #"""#, with: #"\""#)
+        
+            // NOTE: Opening and Closing smart quotes
+            .replacingOccurrences(of: #"“"#, with: #"\""#)
+            .replacingOccurrences(of: #"”"#, with: #"\""#)
+        
+            .replacingOccurrences(of: #"\\""#, with: #"\""#)
+    }
+    // "“Unlock Door”";
+    var quoted: String {
+        #""\#(self)""#
+    }
+}
+
 public struct CodingUnknownKeys: CodingKey {
     public var intValue: Int?
     public var stringValue: String
